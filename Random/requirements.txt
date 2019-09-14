@@ -1,0 +1,3 @@
+cryptography
+pdfkit
+beautifulsoup4

@@ -1,5 +1,9 @@
 # __author__ == "Priya"
-""" Here we are scraping python modules data from pymotw page"""
+""" Here we are scraping python modules data from pymotw page
+Install wkhtmltopdf and overlay-scrollbar in ubuntu using following commands
+>> sudo apt-get install wkhtmltopdf
+>> sudo apt-get install --reinstall overlay-scrollbar-gtk2
+"""
 import os
 import urllib.request
 from bs4 import BeautifulSoup as bs
