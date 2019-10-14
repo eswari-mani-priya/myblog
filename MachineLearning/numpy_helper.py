@@ -28,7 +28,7 @@ def bool_array(listdata):
     return arr_bool
 
 
-#Create object array to hold numbers as well as strings
+# Create object array to hold numbers as well as strings
 def object_array(listdata):
     arr_obj = np.array(listdata, dtype='object')
     return arr_obj
@@ -77,6 +77,22 @@ def get_cummulative_sum(arr):
     return cumsum
 
 
+def replace_arr_elements(arr, elements, replace_str):
+    for each in elements:
+        arr[each] = replace_str
+    return arr
+
+
+def reshape_arr(arr, shape):
+    new_arr = arr.reshape(shape)
+    return new_arr
+
+
+def get_arr_with_range(*args):
+    arr = np.arange(*args)
+    return arr
+
+
 if __name__ =="__main__":
     listdata = [[1, 2, 3, 4],[3, 4, 5, 6], [5, 6, 7, 8]]
     arr1 = array_from_list(listdata)
@@ -110,6 +126,14 @@ if __name__ =="__main__":
     print("Row_Col_Wise_min: ", row_col_min)
     cumsum = get_cummulative_sum(arr1)
     print("Cummualative Sum of Array: ", cumsum)
+    elements = [(1,1), (2,2)]
+    replace_arr  = replace_arr_elements(arr2, elements, np.nan)
+    print("Array after replacing elements with given value: ", replace_arr)
+    arr_reshape = reshape_arr(arr2, (4,3))
+    print("Array after reshaping: ", arr_reshape)
+    range_arr = get_arr_with_range(0,10,2)
+    print("Array with given range: ", range_arr)
+
 
 
 
