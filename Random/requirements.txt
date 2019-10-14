@@ -1,3 +1,7 @@
 cryptography
 pdfkit
 beautifulsoup4
+scikit-learn==0.21.3
+numpy
+matplotlib
+pygame
