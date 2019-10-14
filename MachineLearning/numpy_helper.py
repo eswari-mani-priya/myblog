@@ -93,6 +93,10 @@ def get_arr_with_range(*args):
     return arr
 
 
+def array_indexing(arr):
+    return arr[:, np.newaxis]
+
+
 if __name__ =="__main__":
     listdata = [[1, 2, 3, 4],[3, 4, 5, 6], [5, 6, 7, 8]]
     arr1 = array_from_list(listdata)
@@ -133,6 +137,8 @@ if __name__ =="__main__":
     print("Array after reshaping: ", arr_reshape)
     range_arr = get_arr_with_range(0,10,2)
     print("Array with given range: ", range_arr)
+    arr_index = array_indexing(range_arr)
+    print("Array Indexing: ", arr_index)
 
 
 
