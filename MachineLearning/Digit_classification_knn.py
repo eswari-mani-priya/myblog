@@ -3,8 +3,10 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn import datasets
 import cv2
+from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
+import sys
 
 
 def get_train_test_data(dataset):
@@ -44,6 +46,7 @@ def get_classify_report(prediction, testLabels):
 def show_predictions(model, testData, testLabels):
     for i in np.random.randint(0, high=len(testLabels), size=(5,)):
         data = testData[i]
+        print(data.shape)
         predict = model.predict([data])[0]
         image_data = np.array(data, dtype='float')
         img_reshaped = image_data.reshape((8,8))
@@ -53,16 +56,34 @@ def show_predictions(model, testData, testLabels):
         plt.show()
         cv2.waitKey(0)
 
+
+def get_prediction_realtime(model, image):
+    img = Image.open(image)
+    img.load()
+    img = np.resize(img, (64,))
+    predict = model.predict([img])[0]
+    im2arr = np.array(img, dtype="float64")
+    im2arr = im2arr.reshape((8, 8))
+    plt.imshow(im2arr, cmap='gray')
+    plt.annotate(predict, (3,3), bbox={'facecolor':'white'}, fontsize=32)
+    print("I think digit is: ", predict)
+    plt.show()
+
+
+
 def main():
     dataset = datasets.load_digits()
     trainData, testData, valData, trainLabels, testLabels, valLabels = get_train_test_data(dataset)
     k_range = range(1, 30, 2)
     k_max = get_k_for_max_accuracy(k_range, trainData, trainLabels, valData, valLabels)
     model, prediction = get_prediction_with_max_k(k_max, trainData, trainLabels, testData)
-    cls_report, cnf_matrix = get_classify_report(prediction, testLabels)
-    print("Classification Report: \n", cls_report)
-    print("Confusion Matrix: \n", cnf_matrix)
-    show_predictions(model, testData, testLabels)
+    if len(sys.argv) >= 2:
+        get_prediction_realtime(model, sys.argv[1])
+    else:
+        cls_report, cnf_matrix = get_classify_report(prediction, testLabels)
+        print("Classification Report: \n", cls_report)
+        print("Confusion Matrix: \n", cnf_matrix)
+        show_predictions(model, testData, testLabels)
 
 
 if __name__ == "__main__":
