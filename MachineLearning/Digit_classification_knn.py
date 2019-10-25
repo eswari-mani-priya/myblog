@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from sklearn.externals import joblib
-from skimage.feature import hog
+from skimage.transform import resize
 from skimage import color, exposure
 
 
@@ -73,9 +73,9 @@ def rgb2gray(rgb):
 
 def predict(model, image):
     df = rgb2gray(cv2.imread(image))
-    print("Shape before resize: ", df.shape)
-    df = (16 - df * 16).astype(float)
-    plt.imshow(df, cmap = plt.get_cmap('gray_r'))
+    # print("Shape before resize: ", df.shape)
+    df = (8 - df * 8).astype(int)
+    plt.imshow(df, cmap=plt.get_cmap('gray_r'))
     plt.show()
     print("Shape after resize: ", df.shape)
     df = df.flatten().reshape(1, -1)
